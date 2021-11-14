@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, AbstractControl } from '@angular/forms';
 
+import { BirthDateValidator } from './birth-date.validator';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,10 +18,6 @@ export class AppComponent {
     return this.editForm.get('persons') as FormArray;
   }
 
-  get personControls() {
-    return (this.editForm.get('persons') as FormArray).controls;
-  }
-
   constructor(
     private fb: FormBuilder
   ) {
@@ -32,7 +30,7 @@ export class AppComponent {
     this.persons.push(this.fb.group({
       title: ['', Validators.required],
       name: ['', Validators.required],
-      birth: ['', Validators.required]
+      birth: ['', [BirthDateValidator]]
     }));
   }
 
